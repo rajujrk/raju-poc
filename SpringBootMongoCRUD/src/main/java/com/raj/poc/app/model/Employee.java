@@ -1,11 +1,12 @@
 package com.raj.poc.app.model;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "employee")
+@Document(collection = "Employee")
 public class Employee implements Serializable {
 
 	/**
@@ -14,6 +15,8 @@ public class Employee implements Serializable {
 	private static final long serialVersionUID = 792582907704509334L;
 
 	@Id
+	private BigInteger id;
+
 	private long empId;
 
 	private String empName;
@@ -26,6 +29,16 @@ public class Employee implements Serializable {
 	private String email;
 	private String phone;
 	private String thumbImg;
+
+	
+
+	public BigInteger getId() {
+		return id;
+	}
+
+	public void setId(BigInteger id) {
+		this.id = id;
+	}
 
 	public long getEmpId() {
 		return empId;
