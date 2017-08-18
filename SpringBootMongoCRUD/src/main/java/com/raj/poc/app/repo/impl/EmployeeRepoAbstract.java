@@ -1,5 +1,6 @@
 package com.raj.poc.app.repo.impl;
 
+import java.math.BigInteger;
 import java.util.List;
 
 import org.springframework.data.domain.Example;
@@ -142,7 +143,7 @@ public abstract class EmployeeRepoAbstract implements EmployeeRepo {
 
 	@Query("{empName: { $regex: ?0 } })")
 	public abstract List<Employee> findByEmpName(String empName);
-	
+
 	public abstract List<Employee> listAllEmployee();
 
 	public abstract WriteResult updateEmployee(Employee emp);
@@ -151,4 +152,5 @@ public abstract class EmployeeRepoAbstract implements EmployeeRepo {
 
 	public abstract void deleteEmployee(Long empId);
 
+	public abstract Employee findByEmpById(String id);
 }

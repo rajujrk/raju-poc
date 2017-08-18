@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.List;
 
@@ -91,13 +92,22 @@ public class EmployeeRepoImpl extends EmployeeRepoAbstract {
 			emp.setEmpName(row.getCell(1).getStringCellValue());
 			emp.setJobTitle(row.getCell(2).getStringCellValue());
 			emp.setDepartment(row.getCell(3).getStringCellValue());
-			emp.setEmail(row.getCell(4).getStringCellValue());
-			emp.setPhone(row.getCell(5).getStringCellValue());
-			emp.setCity(row.getCell(6).getStringCellValue());
-			emp.setCountry(row.getCell(7).getStringCellValue());
-			emp.setDoj(row.getCell(8).getStringCellValue());
+			emp.setCompany(row.getCell(4).getStringCellValue());
+			emp.setEmail(row.getCell(5).getStringCellValue());
+			emp.setPhone(row.getCell(6).getStringCellValue());
+			emp.setCity(row.getCell(7).getStringCellValue());
+			emp.setCountry(row.getCell(8).getStringCellValue());
+			emp.setDoj(row.getCell(9).getStringCellValue());
 			createEmployee(emp);
 		}
 		myWorkBook.close();
+	}
+
+	@Override
+	public Employee findByEmpById(String id) {
+		// TODO Auto-generated method stub
+		Employee emp = mongoTemplate.findById(id, Employee.class);
+
+		return emp;
 	}
 }

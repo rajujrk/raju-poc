@@ -15,7 +15,7 @@ public class Employee implements Serializable {
 	private static final long serialVersionUID = 792582907704509334L;
 
 	@Id
-	private BigInteger id;
+	private String id;
 
 	private long empId;
 
@@ -32,11 +32,13 @@ public class Employee implements Serializable {
 
 	
 
-	public BigInteger getId() {
+	
+
+	public String getId() {
 		return id;
 	}
 
-	public void setId(BigInteger id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -3,6 +3,7 @@ package com.raj.poc.app.controller;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.math.BigInteger;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -158,6 +159,30 @@ public class EmployeeRestController {
 		return new ResponseEntity<MessageConstant>(messageService, httpStatus);
 	}
 
+	@RequestMapping(value = "/searchEmployeeById", method = RequestMethod.GET)
+	public ResponseEntity<MessageConstant> searchEmployeeById(@QueryParam("empId") String empId,
+			UriComponentsBuilder ucBuilder) {
+		HttpStatus httpStatus = HttpStatus.OK;
+
+		try {
+
+			Employee emp = employeeRepoImpl.findByEmpById(empId);
+			messageService.setEmpDetails(emp);
+			messageService.setEmployeeList(null);
+			messageService.setMsg("Deleted Successfully");
+			messageService.setStatus(true);
+			messageService.setStatusMsg("Success");
+		} catch (Exception ex) {
+			messageService.setEmpDetails(null);
+			messageService.setMsg(ex.getMessage());
+			messageService.setStatus(false);
+			messageService.setStatusMsg("Failed");
+			httpStatus = HttpStatus.NOT_FOUND;
+		}
+
+		return new ResponseEntity<MessageConstant>(messageService, httpStatus);
+	}
+
 	@RequestMapping(value = "/updalodExcel", method = RequestMethod.POST)
 	public ResponseEntity<MessageConstant> uploadMultipleFileHandler(HttpSession session, HttpServletRequest request,
 			Model model, @RequestParam("xls") MultipartFile fileObj) {
@@ -186,7 +211,7 @@ public class EmployeeRestController {
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
 				stream.write(bytes);
 				stream.close();
-				
+
 				employeeRepoImpl.insertFromFile(serverFile);
 			}
 		} catch (Exception ex) {
